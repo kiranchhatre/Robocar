@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_original.jpg')
+img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_original1.jpg')
 rgb_image = cv2.cvtColor(img_maze, cv2.COLOR_BGR2RGB)
 
 #Gray conversion
@@ -26,7 +26,7 @@ cv2.startWindowThread()
 
 #SaveFile
 
-cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal.jpg',image_final)
+cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal1.jpg',image_final)
 
 #Detect Start and Finish
 

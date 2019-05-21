@@ -94,7 +94,7 @@ def disp():
         cv2.waitKey(1)
 
 
-img = cv2.imread("C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal1.jpg", cv2.IMREAD_GRAYSCALE)
 _, img = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
 img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 h, w = img.shape[:2]
