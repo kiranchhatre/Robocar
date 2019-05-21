@@ -97,10 +97,10 @@ def mouse_event(event, pX, pY, flags, param):
 
 def disp():
     global img
-    cv2.imshow("Image", img)
-    cv2.setMouseCallback('Image', mouse_event)
+    cv2.imshow("Map", img)
+    cv2.setMouseCallback('Map', mouse_event)
     while True:
-        cv2.imshow("Image", img)
+        cv2.imshow("Map", img)
         cv2.waitKey(1)
 
 

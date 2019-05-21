@@ -23,8 +23,6 @@ image_final = cv2.bitwise_not(resized_image)
 
 #Display
 cv2.startWindowThread()
-#cv2.imshow('Final',image_final)
-#cv2.waitKey(0)
 
 #SaveFile
 
