@@ -2,7 +2,7 @@ from cv2 import cv2
 import numpy as np
 import threading
 import colorsys
-
+from Preprocess import startpoint,endpoint
 class Point(object):
 
     def __init__(self, x=0, y=0):
@@ -20,6 +20,8 @@ rw = 2
 p = 0
 start = Point()
 end = Point()
+SP = Point(int(startpoint[0]),int(startpoint[1]))
+EP = Point(int(endpoint[0]),int(endpoint[1]))
 
 dir4 = [Point(0, -1), Point(0, 1), Point(1, 0), Point(-1, 0)]
 
@@ -56,6 +58,7 @@ def BFS(s, e):
 
     path = []
     instruct = []
+
     if found:
         p = e
         while p != s:
@@ -80,19 +83,8 @@ def mouse_event(event, pX, pY, flags, param):
 
     if event == cv2.EVENT_LBUTTONUP:
         if p == 0:
-            cv2.rectangle(img, (pX - rw, pY - rw),
-                          (pX + rw, pY + rw), (0, 0, 255), -1)
-            start = Point(pX, pY)
-            print("start = ", start.x, start.y)
-            p += 1
-        elif p == 1:
-            cv2.rectangle(img, (pX - rw, pY - rw),
-                          (pX + rw, pY + rw), (0, 200, 50), -1)
-            end = Point(pX, pY)
-            print("end = ", end.x, end.y)
-            p += 1
-
-
+            p += 2
+    
 def disp():
     global img
     cv2.imshow("Image", img)
@@ -102,12 +94,12 @@ def disp():
         cv2.waitKey(1)
 
 
-img = cv2.imread("C:\\Users\\faube\\Desktop\\Python\\Data\\theseus.png", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal.jpg", cv2.IMREAD_GRAYSCALE)
 _, img = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
 img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 h, w = img.shape[:2]
 
-print("Select start and end points : ")
+print("Click to start calculation: ")
 
 t = threading.Thread(target=disp, args=())
 t.daemon = True
@@ -116,7 +108,9 @@ t.start()
 while p < 2:
     pass
 
-BFS(start, end)
+#BFS(start, end)
+BFS(SP, EP)
+
 
 #Create a text file with route
 file = open("Route.txt","w")
@@ -126,3 +120,4 @@ for element in instruct:
   
 file.close()
 
+cv2.waitKey(0)
