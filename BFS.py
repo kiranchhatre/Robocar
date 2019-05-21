@@ -125,4 +125,4 @@ for element in instruct:
     file.write(("{0},{1} \n".format(element.x, element.y)))
   
 file.close()
-cv2.waitKey(0)
+
