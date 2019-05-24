@@ -8,7 +8,7 @@ from MatchStart import findstart,findend
 from Robocar.Andre.map_utils import djikstra, calculate_actions
 
 #img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png',0)
-img_maze_rgb = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png')
+img_maze_rgb = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo3.png')
 
 def process_image(maze_raw):
     maze_raw_G = maze_raw[:,:,1]
@@ -318,4 +318,10 @@ print(new_end)
 #print(graph_dict.keys())
 
 path=djikstra(graph_dict,new_start,new_end,verbose=True)
-print(path)
+print('Path',path)
+
+start = path.pop(0)
+init_pose=np.array([[0],[-1]])
+actions=calculate_actions(graph_dict,start,init_pose,path)
+print(actions)
+print('We are awesome')
