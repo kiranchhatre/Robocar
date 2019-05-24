@@ -168,11 +168,11 @@ def test_direction(picture, center_list,direction,position):
     x_center = position[0]
     y_center = position[1]
 
-    if direction == 1: #go to the right
+    if direction == 2: #go to the right
         x= x_center
         while x<shape[0]:
             x+=1
-            if picture[x][y_center][:]==255:
+            if (picture[x,y_center,:]==255).all():
                 break
             else:
                 if [x,y_center] in center_list:
@@ -181,33 +181,40 @@ def test_direction(picture, center_list,direction,position):
                     break
 
 
-    if direction == -1: #go to the right
+    if direction == -2: #go to the right
         x= x_center
         while x>=0:
             x-=1
-            if picture[x][y_center]==255:
+            if (picture[x,y_center,:]==255).all():
                 break
             else:
                 if [x,y_center] in center_list:
                     neighbour = [x,y_center]
                     cost = x_center - x
                     break
-    if direction == 2:
+    if direction == 1:
         y = y_center
         while y < shape[1]:
             y+=1
-            if picture[x_center][y] == 255:
+            if (picture[x_center,y,:] == 255).all():
+                print(picture[x_center,y,0])
+                print(picture[x_center,y,1])
+                print(picture[x_center,y,2])
+
+                print('test_1')
                 break
             else:
+                print('test_2')
                 if [x_center,y] in center_list:
+                    print('test_3')
                     neighbour = [x_center, y]
                     cost = y
                     break
-    if direction == -2:
+    if direction == -1:
         y = y_center
         while y >= 0:
             y-=1
-            if picture[x_center][y] == 255:
+            if (picture[x_center,y,:] == 255).all():
                 break
             else:
                 if [x_center,y] in center_list:
