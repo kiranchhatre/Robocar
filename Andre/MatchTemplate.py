@@ -4,9 +4,10 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import random
 from Graph import Graph
-#from MatchStart import startpoint,endpoint
+from MatchStart import findstart,findend
+from Robocar.Andre.map_utils import djikstra, calculate_actions
 
-img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png',0)
+#img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png',0)
 img_maze_rgb = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png')
 
 def process_image(maze_raw):
@@ -153,7 +154,7 @@ for i in intersections:
         Center_list_tmp.append([pt[0]+5, pt[1]+5])
         # cv2.circle(img_maze_rgb,(pt[0]+4, pt[1]+4),1,(255,0,0), 1)
         #v.Circle(img, center, radius, color, thickness=1, lineType=8, shift=0) 
-    cv2.imwrite('res.png',img_maze_rgb)
+    #cv2.imwrite('res.png',img_maze_rgb)
     cv2.imwrite('res1.png',img_maze)
 
   
@@ -170,12 +171,33 @@ for x in Center_list_tmp:
 
 center_list = list(filter(lambda k: k[0]!=0 and k[1] !=0, Center_list_tmp))
 
+def get_closest(point,point_list):
+    p = np.array(point)
+    distances=[np.linalg.norm(p-np.array(center)) for center in point_list]
+    index=np.argmin(distances)
+    return point_list[index]
+
+startpoint=findstart()
+endpoint=findend()
+
+print('Start',startpoint)
+print('end',endpoint)
+
+
 for element in center_list:
     cv2.circle(img_maze_rgb,tuple(element),1,(255,0,0), 1)
 cv2.imwrite('res.png',img_maze_rgb)
 
 center_list_flipped=[[t[1],t[0]] for t in center_list]  
             # print(type(x))
+
+new_start=get_closest(startpoint,center_list)
+new_start.reverse()
+new_start=tuple(new_start)
+new_end=get_closest(endpoint,center_list)
+new_end.reverse()
+new_end=tuple(new_end)
+
 print(center_list) 
 # print(len(new_list)) 
 # print(maze_copy.shape)
@@ -291,3 +313,9 @@ def build_graph(picture, center_list):
 graph_dict=build_graph(img_maze_rgb,center_list_flipped) 
 
 print(len(graph_dict.keys()))
+print(new_start)
+print(new_end)
+#print(graph_dict.keys())
+
+path=djikstra(graph_dict,new_start,new_end,verbose=True)
+print(path)
