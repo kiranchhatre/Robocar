@@ -1,7 +1,6 @@
 import numpy as np
-import random
 
-def calculate_actions(current_position, pose, path):
+def calculate_actions(maze_dict,current_position, pose, path):
     actions = []
 
     actions_matrice = np.array([[0,-2,0],[-1,0,1],[0,2,0]])
@@ -156,93 +155,3 @@ def get_graph(text):
             graph_dict[node_2].append([distance, node_1, -action])
     assert total_nodes == len(graph_dict.keys()), 'Fuck! Something is wrong'
     return start_node, end_node, graph_dict
-
-def test_direction(picture, center_list,direction,position):
-    
-    shape = picture.shape
-    
-    neighbour = None
-    cost = None
-    
-    
-    x_center = position[0]
-    y_center = position[1]
-    
-    if direction == 1: #go to the right
-        x= x_center
-        while x<shape[0]:
-            x+=1
-            if picture[x][y_center]==255:
-                break
-            else:
-                if [x,y_center] in center_list:
-                    neighbour = [x,y_center]
-                    cost = x
-                    break
-        
-    
-    if direction == -1: #go to the right
-        x= x_center
-        while x>=0:
-            x-=1
-            if picture[x][y_center]==255:
-                break
-            else:
-                if [x,y_center] in center_list:
-                    neighbour = [x,y_center]
-                    cost = x_center - x
-                    break
-    if direction == 2:
-        y = y_center
-        while y < shape[1]:
-            y+=1
-            if picture[x_center][y] == 255:
-                break
-            else:
-                if [x_center,y] in center_list:
-                    neighbour = [x_center, y]
-                    cost = y
-                    break
-    if direction == -2:
-        y = y_center
-        while y >= 0:
-            y-=1
-            if picture[x_center][y] == 255:
-                break
-            else:
-                if [x_center,y] in center_list:
-                    neighbour = [x_center, y]
-                    cost = y_center - y
-                    break
-    
-    return [cost, neighbour, direction]
-
-
-def build_graph(picture, center_list):
-    
-    directions = [-1,1,-2,2]
-    
-    graph_dict = {}
-    
-    open_list = []
-    closed_list = []
-    
-    position = random.choice(center_list)
-    
-    open_list.append(position)
-    
-    while len(open_list)>0:
-        for direction in directions:
-            [cost, neighbour, action] = test_direction(picture,center_list,direction,position)
-            if cost is not None:    
-                if position in graph_dict.keys():
-                    graph_dict[position].append([cost, neighbour, action])
-                else:
-                    graph_dict[position] = [[cost, neighbour, action]]
-                open_list.remove(position)
-                closed_list.append(position)
-                if neighbour not in closed_list:
-                    open_list.append(neighbour)
-                    
-    return graph_dict
-            
