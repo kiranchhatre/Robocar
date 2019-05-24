@@ -238,7 +238,7 @@ def build_graph(picture, center_list):
 
     open_list.append(position)
 
-    while len(open_list)>0:
+    while True:
         for direction in directions:
             [cost, neighbour, action] = test_direction(picture,center_list,direction,position)
             if cost is not None:
@@ -251,6 +251,18 @@ def build_graph(picture, center_list):
                     open_list.append(neighbour)
         open_list.remove(position)
         closed_list.append(position)
-        position = random.choice(center_list)
+        if len(open_list)==0:
+            break
+        position = random.choice(open_list)
 
     return graph_dict
+
+def process_image(maze_raw):
+    maze_raw_G = maze_raw[:,:,1]
+    _, maze_raw_G = cv.threshold(maze_raw_G,100,255,0)
+
+    maze_raw_B = maze_raw[:,:,2]
+    _, maze_raw_B = cv.threshold(maze_raw_B,100,255,0)
+    
+    processed_image = maze_raw_B + maze_raw_G
+    return processed_image
