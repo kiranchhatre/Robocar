@@ -242,13 +242,15 @@ def build_graph(picture, center_list):
         for direction in directions:
             [cost, neighbour, action] = test_direction(picture,center_list,direction,position)
             if cost is not None:
-                if position in graph_dict.keys():
-                    graph_dict[position].append([cost, neighbour, action])
+                if tuple(position) in graph_dict.keys():
+                    graph_dict[tuple(position)].append([cost, neighbour, action])
                 else:
-                    graph_dict[position] = [[cost, neighbour, action]]
-                open_list.remove(position)
-                closed_list.append(position)
+                    graph_dict[tuple(position)] = [[cost, neighbour, action]]
+
                 if neighbour not in closed_list:
                     open_list.append(neighbour)
+        open_list.remove(position)
+        closed_list.append(position)
+        position = random.choice(center_list)
 
     return graph_dict
