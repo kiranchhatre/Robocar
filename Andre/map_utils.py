@@ -259,10 +259,10 @@ def build_graph(picture, center_list):
 
 def process_image(maze_raw):
     maze_raw_G = maze_raw[:,:,1]
-    _, maze_raw_G = cv.threshold(maze_raw_G,100,255,0)
+    _, maze_raw_G = cv2.threshold(maze_raw_G,100,255,0)
 
     maze_raw_B = maze_raw[:,:,2]
-    _, maze_raw_B = cv.threshold(maze_raw_B,100,255,0)
+    _, maze_raw_B = cv2.threshold(maze_raw_B,100,255,0)
     
     processed_image = maze_raw_B + maze_raw_G
     return processed_image

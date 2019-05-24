@@ -42,7 +42,7 @@ def findstart():
     # Threshold the HSV image to get only blue colors
     mask = cv2.inRange(hsv_image, lower_red, upper_red)
     
-
+    
     # Bitwise-AND mask and original image
     res = cv2.bitwise_and(hsv_image,hsv_image, mask= mask)
     cimg=res
