@@ -1,3 +1,4 @@
+import cv2 as cv
 import numpy as np
 import random
 
@@ -172,7 +173,7 @@ def test_direction(picture, center_list,direction,position):
         x= x_center
         while x<shape[0]:
             x+=1
-            if (picture[x,y_center,:]==255).all():
+            if picture[x,y_center]==255:
                 break
             else:
                 if [x,y_center] in center_list:
@@ -185,7 +186,7 @@ def test_direction(picture, center_list,direction,position):
         x= x_center
         while x>=0:
             x-=1
-            if (picture[x,y_center,:]==255).all():
+            if picture[x,y_center]==255:
                 break
             else:
                 if [x,y_center] in center_list:
@@ -196,17 +197,11 @@ def test_direction(picture, center_list,direction,position):
         y = y_center
         while y < shape[1]:
             y+=1
-            if (picture[x_center,y,:] == 255).all():
-                print(picture[x_center,y,0])
-                print(picture[x_center,y,1])
-                print(picture[x_center,y,2])
-
-                print('test_1')
+            if picture[x_center,y] == 255:
+            
                 break
             else:
-                print('test_2')
                 if [x_center,y] in center_list:
-                    print('test_3')
                     neighbour = [x_center, y]
                     cost = y
                     break
@@ -214,7 +209,7 @@ def test_direction(picture, center_list,direction,position):
         y = y_center
         while y >= 0:
             y-=1
-            if (picture[x_center,y,:] == 255).all():
+            if picture[x_center,y] == 255:
                 break
             else:
                 if [x_center,y] in center_list:
