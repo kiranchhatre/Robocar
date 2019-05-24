@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_original1.jpg')
+img_maze = cv2.imread('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png')
 rgb_image = cv2.cvtColor(img_maze, cv2.COLOR_BGR2RGB)
 
 #Gray conversion
@@ -26,7 +26,7 @@ cv2.startWindowThread()
 
 #SaveFile
 
-cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal1.jpg',image_final)
+cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_demofinal.jpg',image_final)
 
 #Detect Start and Finish
 
@@ -49,7 +49,7 @@ def findstart():
     res=cv2.cvtColor(res, cv2.COLOR_RGB2GRAY)
 
 
-    circles = cv2.HoughCircles(res,cv2.HOUGH_GRADIENT,1,30,param1=50,param2=10,minRadius=0,maxRadius=0)
+    circles = cv2.HoughCircles(res,cv2.HOUGH_GRADIENT,1,1,param1=50,param2=10,minRadius=0,maxRadius=0)
     #circles = np.uint16(np.around(circles))
 
     for i in circles[0,:]:
