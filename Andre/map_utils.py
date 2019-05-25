@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 import random
+from cv2 import cv2
 
 def calculate_actions(maze_dict,current_position, pose, path):
     actions = []
@@ -9,7 +10,7 @@ def calculate_actions(maze_dict,current_position, pose, path):
     for position in path:
         for i  in maze_dict[current_position]:
             print(i)
-            if i[1]==position:
+            if tuple(i[1])==position:
                 action = i[2]
                 assert action in [-1,1,-2,2]
         print(action)
@@ -41,7 +42,7 @@ def get_pose(action, pose):
     elif action == -1:
         pose = np.array([[-1],[0]])
     elif action == -2:
-        pose = np.array([[0,1]])
+        pose = np.array([[0],[1]])
     return pose
 def get_rotation_matrix(pose):
     if (pose==np.array([[0],[1]])).all():
@@ -109,8 +110,8 @@ def djikstra(maze_dict,start,goal, verbose = False):
 
             else:
                 for neighbour in maze_dict[x]:
-                    if neighbour[1] not in closed_list:
-                        x2 = neighbour[1]
+                    if tuple(neighbour[1]) not in closed_list:
+                        x2 = tuple(neighbour[1])
                         g2 = neighbour[0] + g
                         backpointer[x2] = x
                         open_list.append((g2,x2))

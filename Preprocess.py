@@ -26,12 +26,11 @@ cv2.startWindowThread()
 
 #SaveFile
 
-cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\Maze_originalfinal1.jpg',image_final)
+cv2.imwrite('C:\\Users\\faube\\Desktop\\Python\\Data\\demo.png',image_final)
 
 #Detect Start and Finish
 
 def findstart():
-    global startpoint
 
     hsv_image = cv2.cvtColor(img_maze, cv2.COLOR_BGR2HSV)
   
@@ -42,7 +41,7 @@ def findstart():
     # Threshold the HSV image to get only blue colors
     mask = cv2.inRange(hsv_image, lower_red, upper_red)
     
-    
+
     # Bitwise-AND mask and original image
     res = cv2.bitwise_and(hsv_image,hsv_image, mask= mask)
     cimg=res
@@ -59,11 +58,12 @@ def findstart():
         cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
         startpoint = (i[0],i[1])
     #print(startpoint)
-    #cv2.imshow('Detected Start circles',cimg)
-    #cv2.waitKey(0)
+    cv2.imshow('Detected Start circles',cimg)
+    cv2.waitKey(0)
+    return startpoint
 
 def findend():
-    global endpoint
+  
 
     hsv_image = cv2.cvtColor(img_maze, cv2.COLOR_BGR2HSV)
   
@@ -90,8 +90,7 @@ def findend():
         cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
         endpoint = (i[0],i[1])
     #print(endpoint)
-    #cv2.imshow('Detected End circles',cimg)
-    #cv2.waitKey(0)
+    cv2.imshow('Detected End circles',cimg)
+    cv2.waitKey(0)
 
-findstart()
-findend()
+    return endpoint
