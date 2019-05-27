@@ -1,6 +1,12 @@
 # Robocar
 Continental Challenge
 
+Contribution:
+- OpenCV Template Match
+- Yolo OpenCV Obj detection
+- Tensorflow SSD implementation
+
+
 Die Aufgabe
 
 Sei Teil einer spannenden Challenge und bring Dein Wissen im Team ein. Überwinde in unserer Labyrinth Challenge alle Hürden und sorg dafür, dass ein Roboter ein unbekanntes Linienlabyrinth autonom durchfahren kann.
